@@ -5,18 +5,17 @@ Whether you are working on text, vision, or multi-modal problems, this tutorial 
 
 ## 📚 Tutorial Structure
 
-The journey is organised into six Jupyter notebooks (found in the repo root once generated):
+This project now uses **one comprehensive Jupyter notebook**:
 
-| # | Notebook | What you’ll learn |
-|---|----------|-------------------|
-| 1 | `01_motivation.ipynb` | Why finetuning matters, typical scenarios, cost vs. benefit analysis. |
-| 2 | `02_data_collection_and_preparation.ipynb` | Strategies for sourcing, cleaning, and structuring a **task-specific dataset**—the most critical & unique step. |
-| 3 | `03_selecting_a_base_model.ipynb` | How to pick the right pretrained checkpoint (Transformer, Diffusion, etc.) based on domain, scale, and resource budget. |
-| 4 | `04_training_and_finetuning.ipynb` | Writing an efficient training script with `transformers`, `datasets`, `accelerate` & 🤗 Hub integration. |
-| 5 | `05_evaluation.ipynb` | Quantitative & qualitative evaluation, using `evaluate`, custom metrics, and error analysis dashboards. |
-| 6 | `06_deployment_and_serving.ipynb` | Exporting, versioning, and serving your model (HF Inference Endpoints, FastAPI, TorchScript, etc.). |
+* **`finetune_your_own_model.ipynb`** – a single, self-contained tutorial that walks you through the entire workflow:
+  1. Motivation for fine-tuning vs. training from scratch  
+  2. Collecting & preparing a task-specific dataset  
+  3. Selecting an appropriate base model (text, vision, audio, …)  
+  4. Writing the training / fine-tuning script with `transformers`, `datasets`, and `accelerate`  
+  5. Evaluating your model with built-in and custom metrics  
+  6. Deployment options: local inference, FastAPI, Hugging Face Inference Endpoints, and model optimisation techniques  
 
-> 💡 **Modular by design** – feel free to jump to the notebook that matches your current needs.
+> 💡 **Skip around freely** – each section in the notebook is clearly labelled, so you can jump straight to the part you need.
 
 ## 🔧 Prerequisites
 
@@ -50,12 +49,7 @@ Open the notebooks in order and execute the cells. Each notebook contains detail
 
 ```
 .
-├── 01_motivation.ipynb
-├── 02_data_collection_and_preparation.ipynb
-├── 03_selecting_a_base_model.ipynb
-├── 04_training_and_finetuning.ipynb
-├── 05_evaluation.ipynb
-├── 06_deployment_and_serving.ipynb
+├── finetune_your_own_model.ipynb
 └── README.md
 ```
 
