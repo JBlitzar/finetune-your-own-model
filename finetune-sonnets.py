@@ -34,7 +34,8 @@ def load_and_preprocess_data():
     
     # Example of preprocessing: lowercasing and stripping whitespace
     def clean_text(example):
-        example["text"] = example["text"].lower().strip()
+        example["text"] = example["text"].lower().strip() + "<|eos|>"
+
         return example
     
     train_dataset = train_dataset.map(clean_text)
@@ -74,13 +75,13 @@ def train_model(tokenizer, train_dataset, val_dataset):
     training_args = TrainingArguments(
         output_dir="./results",
         overwrite_output_dir=True,
-        num_train_epochs=5,
-        per_device_train_batch_size=4,
+        num_train_epochs=5, # Train for 5 epochs
+        per_device_train_batch_size=4, # Batch size of 4. If you have more GPU memory, you can increase this
         per_device_eval_batch_size=4,
         eval_steps=100,
         save_steps=100,
         warmup_steps=100,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         logging_dir="./logs",
         logging_steps=10,
         learning_rate=5e-5, # Typical starting point for fine-tuning
@@ -107,6 +108,8 @@ def train_model(tokenizer, train_dataset, val_dataset):
     print("Starting training...")
     # Huggingface does the rest!
     trainer.train()
+    # If resuming from a checkpoint
+    # trainer.train(resume_from_checkpoint=True)
     
     return model, trainer
 
@@ -142,6 +145,8 @@ def generate_sonnet(prompt="Write a sonnet about ", max_length=250):
         )
         
         generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True) # Decode the generated tokens
+
+        generated_text = generated_text[len(prompt):].split("<|eos|>")[0].strip()
         
         return generated_text
     
@@ -162,6 +167,20 @@ def main():
     print("\nGenerating a sample sonnet...")
     sample_sonnet = generate_sonnet("Write a sonnet about love: ")
     print(sample_sonnet)
+    """
+        and if he could, he could not do what he should,
+        to which his worth is worth,
+        and in the hours spent with him, to which he lives;
+        he did not live in his absence, or in his way.
+        but as time passes,
+        the day that thou shouldst have,
+        the world is a part of him;
+        and when he should, for the love of his mother,
+        the world must not be in him,
+        or his love of his mother, but in him. 
+        then, my love, is born,
+        and i will live in him.
+    """
 
 if __name__ == "__main__":
     main()
