@@ -113,8 +113,9 @@ def train_model(tokenizer, train_dataset, val_dataset):
     
     return model, trainer
 
+MODEL_DIR = "./shakespeare_sonnets_model"
 def save_model(model, tokenizer):
-    output_dir = "./shakespeare_sonnets_model"
+    output_dir = MODEL_DIR
     os.makedirs(output_dir, exist_ok=True)
     
     model.save_pretrained(output_dir)
@@ -122,10 +123,10 @@ def save_model(model, tokenizer):
     
     return output_dir
 
-def generate_sonnet(prompt="Write a sonnet about ", max_length=250):
+def generate(prompt="Write a sonnet about ", max_length=250):
     try:
         # Load model and tokenizer
-        model_dir = "./shakespeare_sonnets_model"
+        model_dir = MODEL_DIR
         model = AutoModelForCausalLM.from_pretrained(model_dir)
         tokenizer = AutoTokenizer.from_pretrained(model_dir)
         
@@ -165,7 +166,7 @@ def main():
     model_dir = save_model(model, tokenizer)
 
     print("\nGenerating a sample sonnet...")
-    sample_sonnet = generate_sonnet("Write a sonnet about love: ")
+    sample_sonnet = generate("Write a sonnet about love: ")
     print(sample_sonnet)
     """
         and if he could, he could not do what he should,
